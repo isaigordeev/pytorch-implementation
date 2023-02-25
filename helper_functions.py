@@ -1,3 +1,8 @@
+"""
+A series of helper functions used throughout the course.
+
+If a function gets defined once and could be used over and over, it'll go in here.
+"""
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
@@ -30,20 +35,21 @@ def walk_through_dir(dir_path):
     for dirpath, dirnames, filenames in os.walk(dir_path):
         print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
 
-def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
+def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor, device):
     """Plots decision boundaries of model predicting on X in comparison to y.
 
     Source - https://madewithml.com/courses/foundations/neural-networks/ (with modifications)
     """
     # Put everything to CPU (works better with NumPy + Matplotlib)
-    model.to("cpu")
-    X, y = X.to("cpu"), y.to("cpu")
+    if device != 'cpu':
+        model.to("cpu")
+        X, y = X.to("cpu"), y.to("cpu")
 
     # Setup prediction boundaries and grid
     x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
     y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
     xx, yy = np.meshgrid(np.linspace(x_min, x_max, 101), np.linspace(y_min, y_max, 101))
-    
+
     # Make features
     X_to_pred_on = torch.from_numpy(np.column_stack((xx.ravel(), yy.ravel()))).float()
 
@@ -51,7 +57,7 @@ def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Ten
     model.eval()
     with torch.inference_mode():
         y_logits = model(X_to_pred_on)
-        print(y_logits)
+
     # Test for multi-class or binary and adjust logits to prediction labels
     if len(torch.unique(y)) > 2:
         y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1)  # mutli-class
@@ -64,7 +70,6 @@ def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Ten
     plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
-
 
 
 # Plot linear data or training and test and predictions (optional)

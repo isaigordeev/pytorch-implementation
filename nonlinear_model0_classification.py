@@ -56,17 +56,21 @@ X_train, X_test, y_train, y_test = train_test_split(features, labels,
 
 
 
-class ClassificationModel0(nn.Module):
+class ClassificationNonLModel0(nn.Module):
     def __init__(self): 
         super().__init__()
-        self.layer1 = nn.Linear(in_features=len(X_train[0]), out_features=5)
-        self.layer2 = nn.Linear(in_features=5, out_features=1)
+        self.layer1 = nn.Linear(in_features=len(X_train[0]), out_features=10)
+        self.layer2 = nn.Linear(in_features=10, out_features=10)
+        self.layer3 = nn.Linear(in_features=10, out_features=1)
+        self.relu = nn.ReLU()
 
     def forward(self, x):
-        return self.layer2(self.layer1(x))
+        return self.layer3(
+            self.relu(self.layer2(
+            self.relu(self.layer1(x)))))
 
 torch.manual_seed(random_seed)
-model_0 = ClassificationModel0().to(device)
+model_0 = ClassificationNonLModel0().to(device)
 print(model_0)
 
 loss_fn = nn.BCEWithLogitsLoss()
@@ -88,7 +92,7 @@ def sigmoid_round(y):
 
 # print(sigmoid_round(model_0(X_train[:5]))== sigmoid_round(y_train[:5]))
 
-epochs = 100 
+epochs = 1500
 
 
 X_train, y_train = X_train.to(device), y_train.to(device)
@@ -138,7 +142,7 @@ plot_decision_boundary(model_0, X_train, y_train, device)
 plt.subplot(1, 2, 2)
 plt.title("Test")
 plot_decision_boundary(model_0, X_test, y_test, device)
-plt.savefig('./models/model0_classification/train_loss_seed:' + f'{random_seed}' + '.pdf')
+plt.savefig('./models/nonlinear_model0_classification/train_loss_seed:' + f'{random_seed}' + '.pdf')
 plt.show()
 
 

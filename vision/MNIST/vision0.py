@@ -105,7 +105,8 @@ train_features_batch, train_label_batch = next(iter(train_dataloader))
 
 # print(train_features_batch.shape)
 
-torch.manual_seed(SEED)
+# torch.manual_seed(SEED)
+
 # plt.clf()
 # random_idx = torch.randint(0, len(train_features_batch), size=[1]).item()
 # img, label = train_features_batch[random_idx], train_label_batch[random_idx]
@@ -120,9 +121,9 @@ x = train_features_batch[0]
 
 output = flatten_model(x)
 
-print(x.shape)
-print(output)
-print(output.shape)
+# print(x.shape)
+# print(output)
+# print(output.shape)
 
 class FashionMNISTModel0(nn.Module):
     def __init__(self, input_shape: int, hidden_units : int, output_shape: int):
@@ -132,7 +133,7 @@ class FashionMNISTModel0(nn.Module):
             nn.Linear(in_features=input_shape, out_features=hidden_units),
             nn.ReLU(),
             nn.Linear(in_features=hidden_units, out_features=output_shape),
-            nn.ReLU(),
+            # nn.ReLU(),
         )
 
     def forward(self, x):

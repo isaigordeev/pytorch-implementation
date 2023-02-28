@@ -3,7 +3,7 @@ from torch import nn
 import matplotlib.pyplot as plt 
 from sklearn.datasets import make_blobs
 from sklearn.model_selection import train_test_split
-from vision.helper_functions import plot_decision_boundary
+from helper_functions import plot_decision_boundary
 
 
 NUM_CLASSES = 7

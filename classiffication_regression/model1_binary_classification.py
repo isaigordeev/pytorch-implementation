@@ -5,7 +5,7 @@ from torch import nn
 import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
-from vision.helper_functions import plot_decision_boundary
+from helper_functions import plot_decision_boundary
 
 
 n_samples = 1000

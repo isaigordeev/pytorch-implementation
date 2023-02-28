@@ -72,6 +72,6 @@ model_0_results = eval_model(model=model_0,
 
 print(model_0_results)
 
-MODEL_SAVE_PATH = 'models/vision/MNIST_vision/MNIST_vision.pth'
+
 torch.save(obj=model_0.state_dict(),
             f=MODEL_SAVE_PATH)

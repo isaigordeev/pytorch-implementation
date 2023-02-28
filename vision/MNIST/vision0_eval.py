@@ -19,4 +19,4 @@ for i in range(1, rows*cols+1):
     plt.title(class_names[label] + ' is: ' + class_names[pred] )
     plt.axis(False);
 
-plt.savefig('./models/vision/MNIST_vision/image_pick_set_prediction1.png')
+plt.savefig('./models/vision/MNIST_vision/image_pick_set_prediction4_wout_last_ReLU.png')
